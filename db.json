@@ -1,0 +1,34 @@
+{
+  "issues": [
+    {
+      "id": 1,
+      "name": "issue 1",
+      "description": "description 1",
+      "active": false
+    },
+    {
+      "id": 2,
+      "name": "issue 2",
+      "description": "description 2",
+      "active": false
+    },
+    {
+      "id": 3,
+      "name": "issue 3",
+      "description": "description 3",
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "issue 4",
+      "description": "description 4",
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "issue 5",
+      "description": "description 5",
+      "active": false
+    }
+  ]
+}
