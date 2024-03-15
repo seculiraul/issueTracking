@@ -1,0 +1,29 @@
+<div class="relative">
+  <div
+    class="flex flex-row justify-start items-center h-7 w-full bg-emerald-600"
+  >
+    <label (click)="onClick()">Click</label>
+  </div>
+  <div
+    class="fixed flex flex-col inset-y-0 left-[-100%] lg:w-[200px] md:w-[150px] w-32 bg-emerald-400 duration-700"
+    [ngClass]="{ 'left-[0%]': active }"
+  >
+    <div class="flex flex-row justify-end px-4 mt-6">
+      <label (click)="onClick()">X</label>
+    </div>
+    <div class="flex flex-col gap-2 p-2 mt-2">
+      <span
+        class="p-2 overflow-hidden cursor-pointer duration-300"
+        [ngClass]="{ hidden: !active }"
+        (click)="onItemsClick('new')"
+        >Create new issue</span
+      >
+      <span
+        class="p-2 cursor-pointer duration-300"
+        [ngClass]="{ hidden: !active }"
+        (click)="onItemsClick('list')"
+        >See all issues</span
+      >
+    </div>
+  </div>
+</div>
