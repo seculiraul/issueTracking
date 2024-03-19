@@ -1,11 +1,11 @@
 <div class="relative">
   <div
-    class="flex flex-row p-2 text-black rounded-b-sm justify-start items-center h-7 w-full bg-emerald-600"
+    class="flex flex-row p-2 text-black rounded-b-sm justify-start items-center h-7 w-full bg-emerald-500"
   >
-    <label (click)="onClick()">Click</label>
+    <label class="text-orange-600" (click)="onClick()">Click</label>
   </div>
   <div
-    class="fixed flex flex-col rounded-md inset-y-0 left-[-100%] lg:w-[200px] md:w-[150px] w-32 bg-emerald-400 duration-700"
+    class="fixed flex flex-col rounded-md inset-y-0 left-[-100%] lg:w-[200px] md:w-[150px] w-32 bg-emerald-500 duration-700"
     [ngClass]="{ 'left-[0%]': active }"
   >
     <div class="flex flex-row justify-end px-4 mt-6">
