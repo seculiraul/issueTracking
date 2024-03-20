@@ -1,33 +1,38 @@
 {
   "issues": [
     {
-      "id": 1,
+      "id": "iid-123-isue1",
       "name": "issue 1",
       "description": "description 1",
+      "date": "01-01-2012",
       "active": false
     },
     {
-      "id": 2,
+      "id": "iid-123-isue2",
       "name": "issue 2",
-      "description": "description 2",
+      "description": "description 2 description 2 description 2 description 2",
+      "date": "02-02-2013",
       "active": false
     },
     {
-      "id": 3,
+      "id": "iid-123-isue3",
       "name": "issue 3",
       "description": "description 3",
+      "date": "03-03-2014",
       "active": true
     },
     {
-      "id": 4,
+      "id": "iid-123-isue4",
       "name": "issue 4",
       "description": "description 4",
+      "date": "01-05-2016",
       "active": true
     },
     {
-      "id": 5,
+      "id": "iid-123-isue5",
       "name": "issue 5",
       "description": "description 5",
+      "date": "05-05-2016",
       "active": false
     }
   ]

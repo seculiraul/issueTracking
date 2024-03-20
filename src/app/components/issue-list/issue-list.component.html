@@ -3,7 +3,7 @@
     class="border-collapse my-2 text-sm min-w-[400px] rounded-md shadow-md"
   >
     <thead>
-      <tr class="text-left text-black bg-emerald-600 font-bold">
+      <tr class="text-center text-black bg-emerald-600 font-bold">
         <th class="p-2">Name</th>
         <th class="p-2">Description</th>
         <th class="p-2">Date</th>
@@ -11,12 +11,14 @@
       </tr>
     </thead>
     <tbody>
-      @for(issue of issues; track issue) {
+      @for(issue of issues$ | async; track issue) {
       <tr
-        class="border-b-2 text-black bg-gray-400 odd:bg-gray-300 last-of-type:border-emerald-600"
+        class="text-center border-b-2 text-black bg-gray-400 odd:bg-gray-300 last-of-type:border-emerald-600"
       >
         <td class="p-2">{{ issue?.name }}</td>
-        <td class="p-2">{{ issue?.desc }}</td>
+        <td class="p-2 max-w-[200px] truncate">
+          {{ issue?.description }}
+        </td>
         <td class="p-2">{{ issue?.date }}</td>
         <td class="p-2">
           @if(issue?.active) {
