@@ -3,7 +3,7 @@
     class="border-collapse my-2 text-sm min-w-[400px] rounded-md shadow-md"
   >
     <thead>
-      <tr class="text-left text-white bg-emerald-600 font-bold">
+      <tr class="text-left text-black bg-emerald-600 font-bold">
         <th class="p-2">Name</th>
         <th class="p-2">Description</th>
         <th class="p-2">Date</th>
@@ -13,12 +13,30 @@
     <tbody>
       @for(issue of issues; track issue) {
       <tr
-        class="border-b-2 bg-zinc-300 odd:bg-zinc-200 last-of-type:border-emerald-600"
+        class="border-b-2 text-black bg-gray-400 odd:bg-gray-300 last-of-type:border-emerald-600"
       >
         <td class="p-2">{{ issue?.name }}</td>
         <td class="p-2">{{ issue?.desc }}</td>
         <td class="p-2">{{ issue?.date }}</td>
-        <td class="p-2">{{ issue?.active }}</td>
+        <td class="p-2">
+          @if(issue?.active) {
+
+          <span class="relative flex h-3 w-3">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+            ></span>
+            <span
+              class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"
+            ></span>
+          </span>
+          } @else {
+          <span class="relative flex h-3 w-3">
+            <span
+              class="relative inline-flex rounded-full h-3 w-3 bg-red-500"
+            ></span>
+          </span>
+          }
+        </td>
       </tr>
       }
     </tbody>
