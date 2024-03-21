@@ -14,9 +14,15 @@ export class NewIssueComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: ['hello'],
-      description: ['test'],
+      name: [''],
+      description: [''],
+      date: [''],
+      hour: [''],
       active: [false],
     });
+  }
+
+  onSubmit(): void {
+    console.log(this.form.value);
   }
 }

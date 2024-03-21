@@ -1,25 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Issue } from '../../models/Issue';
+import { IssueService } from '../../services/issue.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { CommonModule } from '@angular/common';
 
+@UntilDestroy()
 @Component({
   selector: 'app-issue-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './issue-list.component.html',
   styleUrl: './issue-list.component.scss',
 })
-export class IssueListComponent {
-  issues: { name: string; desc: string; date: string; active: boolean }[] = [
-    {
-      name: 'issue1',
-      desc: 'desc issue1',
-      date: '20-01-2020',
-      active: true,
-    },
-    {
-      name: 'issue2',
-      desc: 'desc issue2',
-      date: '01-01-2020',
-      active: false,
-    },
-  ];
+export class IssueListComponent implements OnInit {
+  issues$!: Observable<Issue[]>;
+
+  constructor(private service: IssueService) {}
+
+  ngOnInit(): void {
+    this.issues$ = this.service.getIssues().pipe(untilDestroyed(this));
+  }
 }
