@@ -4,9 +4,9 @@ import { Store, select } from '@ngrx/store';
 import { Issue } from '../../models/Issue';
 import { isLoading } from '../../store/issue.selectors';
 import { Observable } from 'rxjs';
-import * as IssuesActions from '../../store/issue.actions';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { CommonModule } from '@angular/common';
+import { createIssueActions } from '../../store/issue.actions';
 
 @Component({
   selector: 'app-new-issue',
@@ -33,8 +33,6 @@ export class NewIssueComponent implements OnInit {
       hour: [''],
       active: [false],
     });
-
-    this.store.dispatch(IssuesActions.getIssues());
   }
 
   onSubmit(): void {
@@ -46,7 +44,6 @@ export class NewIssueComponent implements OnInit {
       date,
       active,
     };
-    // this.store.dispatch(addIssue(issue));
     console.log(this.form.value);
   }
 }
