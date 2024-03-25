@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Issue } from '../models/Issue';
 import { IssuesStateInterface } from './issuesStateInterface';
-import * as IssueActions from './issue.actions';
+import { createIssueActions } from './issue.actions';
 
 export interface State {
   issues: Issue[];
@@ -15,40 +15,40 @@ export const initialState: IssuesStateInterface = {
 
 export const issueReducers = createReducer(
   initialState,
-  on(IssueActions.getIssues, (state) => {
+  on(createIssueActions.getIssues, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(IssueActions.getIssuesSuccess, (state, action) => {
+  on(createIssueActions.getIssuesSuccess, (state, action) => {
     return {
       ...state,
       isLoading: false,
       issues: action?.issues,
     };
   }),
-  on(IssueActions.getIssuesFail, (state, action) => {
+  on(createIssueActions.getIssuesFail, (state, action) => {
     return {
       ...state,
       isLoading: false,
       error: action?.error,
     };
   }),
-  on(IssueActions.createIssue, (state) => {
+  on(createIssueActions.createIssue, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(IssueActions.createIssueSuccess, (state, action) => {
+  on(createIssueActions.createIssueSuccess, (state, action) => {
     return {
       ...state,
       isLoading: false,
       issues: [...state.issues, action?.issue],
     };
   }),
-  on(IssueActions.createIssuesFail, (state, action) => {
+  on(createIssueActions.createIssueFail, (state, action) => {
     return {
       ...state,
       isLoading: false,

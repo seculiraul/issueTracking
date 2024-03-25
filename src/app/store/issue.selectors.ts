@@ -14,3 +14,8 @@ export const errorSelector = createSelector(
   selectFeature,
   (state) => state.error
 );
+
+export const selectIssueById = (id: string) =>
+  createSelector(selectFeature, (state) =>
+    state.issues.find((issue) => issue.id === id)
+  );

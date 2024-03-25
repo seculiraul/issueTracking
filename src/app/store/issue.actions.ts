@@ -1,24 +1,19 @@
-import { createAction, props } from '@ngrx/store';
+import {
+  createAction,
+  createActionGroup,
+  emptyProps,
+  props,
+} from '@ngrx/store';
 import { Issue } from '../models/Issue';
 
-export const getIssues = createAction('[Issues] Get Issues');
-export const getIssuesSuccess = createAction(
-  '[Issues] Get Issues Success',
-  props<{ issues: Issue[] }>()
-);
-export const getIssuesFail = createAction(
-  '[Issues] Get Issues Fail',
-  props<{ error: string }>()
-);
-
-export const createIssue = createAction('[Issue] Post Issue');
-
-export const createIssueSuccess = createAction(
-  '[Issue] Post Issue Succcess',
-  props<{ issue: Issue }>()
-);
-
-export const createIssuesFail = createAction(
-  '[Issues] Post Issue Fail',
-  props<{ error: string }>()
-);
+export const createIssueActions = createActionGroup({
+  source: 'issues',
+  events: {
+    'Create Issue': props<{ issue: Issue }>(),
+    'Create Issue Success': props<{ issue: Issue }>(),
+    'Create Issue Fail': props<{ error: string }>(),
+    'Get Issues': emptyProps(),
+    'Get Issues Success': props<{ issues: Issue[] }>(),
+    'Get Issues Fail': props<{ error: string }>(),
+  },
+});
