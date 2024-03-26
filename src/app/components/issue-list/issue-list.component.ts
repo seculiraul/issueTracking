@@ -11,7 +11,7 @@ import {
   selectIssueById,
 } from '../../store/issue.selectors';
 import { AppStateInterface } from '../../store/appStateInterface';
-import { createIssueActions } from '../../store/issue.actions';
+import { issueActions } from '../../store/issue.actions';
 
 @UntilDestroy()
 @Component({
@@ -34,7 +34,7 @@ export class IssueListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(createIssueActions.getIssues());
+    this.store.dispatch(issueActions.getIssues());
     this.issues$ = this.store.pipe(
       untilDestroyed(this),
       select(issuesSelector)

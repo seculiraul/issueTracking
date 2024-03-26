@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Issue } from '../models/Issue';
 import { IssuesStateInterface } from './issuesStateInterface';
-import { createIssueActions } from './issue.actions';
+import { issueActions } from './issue.actions';
 
 export interface State {
   issues: Issue[];
@@ -10,45 +10,66 @@ export interface State {
 export const initialState: IssuesStateInterface = {
   isLoading: false,
   issues: [],
+  selectedIssue: null,
   error: null,
 };
 
 export const issueReducers = createReducer(
   initialState,
-  on(createIssueActions.getIssues, (state) => {
+  on(issueActions.getIssues, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(createIssueActions.getIssuesSuccess, (state, action) => {
+  on(issueActions.getIssuesSuccess, (state, action) => {
     return {
       ...state,
       isLoading: false,
       issues: action?.issues,
     };
   }),
-  on(createIssueActions.getIssuesFail, (state, action) => {
+  on(issueActions.getIssuesFail, (state, action) => {
     return {
       ...state,
       isLoading: false,
       error: action?.error,
     };
   }),
-  on(createIssueActions.createIssue, (state) => {
+  on(issueActions.createIssue, (state) => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(createIssueActions.createIssueSuccess, (state, action) => {
+  on(issueActions.createIssueSuccess, (state, action) => {
     return {
       ...state,
       isLoading: false,
       issues: [...state.issues, action?.issue],
     };
   }),
-  on(createIssueActions.createIssueFail, (state, action) => {
+  on(issueActions.createIssueFail, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action?.error,
+    };
+  }),
+  on(issueActions.getSingleIssue, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(issueActions.getSingleIssueSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      selectedIssue: action?.issue,
+    };
+  }),
+  on(issueActions.getSingleIssuesFail, (state, action) => {
     return {
       ...state,
       isLoading: false,
