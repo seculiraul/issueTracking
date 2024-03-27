@@ -16,6 +16,16 @@ export class IssueService {
       .pipe(catchError(this.handleError<Issue[]>('Failed to get issues')));
   }
 
+  getIssueById(id: string): Observable<Issue> {
+    return this.http
+      .get<Issue>(`${this.issueUrl}/${id}`)
+      .pipe(
+        catchError(
+          this.handleError<Issue>(`Failed to get issue with id: ${id}`)
+        )
+      );
+  }
+
   createIssue(data: Issue): Observable<Issue> {
     return this.http
       .post<Issue>(this.issueUrl, data)

@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
 import { IssueService } from '../services/issue.service';
 import { Issue } from '../models/Issue';
-import { createIssueActions } from './issue.actions';
+import { issueActions } from './issue.actions';
 
 // @Injectable()
 // export class IssuesEffects {
@@ -33,16 +33,14 @@ import { createIssueActions } from './issue.actions';
 export const getIssuesEffect = createEffect(
   (actions$ = inject(Actions), service = inject(IssueService)) => {
     return actions$.pipe(
-      ofType(createIssueActions.getIssues),
+      ofType(issueActions.getIssues),
       switchMap(() => {
         return service.getIssues().pipe(
           map((issues: Issue[]) => {
-            return createIssueActions.getIssuesSuccess({ issues });
+            return issueActions.getIssuesSuccess({ issues });
           }),
           catchError((error: Error) => {
-            return of(
-              createIssueActions.getIssuesFail({ error: error?.message })
-            );
+            return of(issueActions.getIssuesFail({ error: error?.message }));
           })
         );
       })
@@ -54,19 +52,40 @@ export const getIssuesEffect = createEffect(
 export const createIssueEffect = createEffect(
   (actions$ = inject(Actions), issueService = inject(IssueService)) => {
     return actions$?.pipe(
-      ofType(createIssueActions.createIssue),
+      ofType(issueActions.createIssue),
       switchMap(({ issue }) => {
         return issueService.createIssue(issue).pipe(
           map((crtIssue: Issue) => {
-            return createIssueActions.createIssueSuccess({
+            return issueActions.createIssueSuccess({
               issue: crtIssue,
             });
           }),
           catchError((error: Error) => {
             return of(
-              createIssueActions.createIssueFail({
+              issueActions.createIssueFail({
                 error: error.message,
               })
+            );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const getSingleIssue = createEffect(
+  (actions$ = inject(Actions), service = inject(IssueService)) => {
+    return actions$?.pipe(
+      ofType(issueActions.getSingleIssue),
+      switchMap(({ id }) => {
+        return service.getIssueById(id).pipe(
+          map((issue) => {
+            return issueActions.getSingleIssueSuccess({ issue });
+          }),
+          catchError((error: Error) => {
+            return of(
+              issueActions.getSingleIssueFail({ error: error?.message })
             );
           })
         );

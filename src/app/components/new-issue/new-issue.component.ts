@@ -6,7 +6,7 @@ import { isLoading } from '../../store/issue.selectors';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { CommonModule } from '@angular/common';
-import { createIssueActions } from '../../store/issue.actions';
+import { issueActions } from '../../store/issue.actions';
 
 @Component({
   selector: 'app-new-issue',
