@@ -15,4 +15,11 @@ export const routes: Routes = [
         (m) => m.IssueListComponent
       ),
   },
+  {
+    path: 'issue/:id',
+    loadComponent: () =>
+      import('./components/issue-view/issue-view.component').then(
+        (m) => m.IssueViewComponent
+      ),
+  },
 ];

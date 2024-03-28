@@ -69,7 +69,7 @@ export const issueReducers = createReducer(
       selectedIssue: action?.issue,
     };
   }),
-  on(issueActions.getSingleIssuesFail, (state, action) => {
+  on(issueActions.getSingleIssueFail, (state, action) => {
     return {
       ...state,
       isLoading: false,
