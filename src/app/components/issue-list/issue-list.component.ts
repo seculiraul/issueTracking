@@ -12,6 +12,7 @@ import {
 } from '../../store/issue.selectors';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { issueActions } from '../../store/issue.actions';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -28,7 +29,8 @@ export class IssueListComponent implements OnInit {
 
   constructor(
     private service: IssueService,
-    private store: Store<AppStateInterface>
+    private store: Store<AppStateInterface>,
+    private router: Router
   ) {
     this.isLoading$ = this.store.pipe(select(isLoading));
   }
@@ -44,5 +46,11 @@ export class IssueListComponent implements OnInit {
       .subscribe((issue: Issue | undefined) => {
         console.log(issue?.id);
       });
+  }
+
+  onRowClick(id?: string): void {
+    if (id) {
+      this.router.navigate(['issue', id]);
+    }
   }
 }
