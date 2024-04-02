@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Issue } from '../../models/Issue';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { CommonModule } from '@angular/common';
-import { issueActions } from '../../store/issue.actions';
 import { IssueFormComponent } from '../issue-form/issue-form.component';
+import { IssueFormInput } from '../../models/issueFormInput';
 
 @Component({
   selector: 'app-new-issue',
@@ -17,7 +17,7 @@ import { IssueFormComponent } from '../issue-form/issue-form.component';
 export class NewIssueComponent implements OnInit {
   //form!: FormGroup;
   //isLoading$!: Observable<boolean>;
-  initForm = {
+  initForm: IssueFormInput = {
     name: '',
     description: '',
     date: '',
@@ -28,31 +28,9 @@ export class NewIssueComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<AppStateInterface>
-  ) {
-    //this.isLoading$ = this.store.pipe(select(isLoading));
-  }
+  ) {}
 
-  ngOnInit(): void {
-    // this.form = this.fb.group({
-    //   name: [''],
-    //   description: [''],
-    //   date: [''],
-    //   hour: [''],
-    //   active: [false],
-    // });
-  }
-
-  // onSubmit(): void {
-  //   const { name, description, date, active } = this.form.value;
-  //   const issue: Issue = {
-  //     id: '11-22-33',
-  //     name,
-  //     description,
-  //     date,
-  //     active,
-  //   };
-  //   console.log(this.form.value);
-  // }
+  ngOnInit(): void {}
 
   onSub(issue: Issue) {
     console.log('new issue submitted', issue);

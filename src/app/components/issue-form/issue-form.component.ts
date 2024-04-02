@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Issue } from '../../models/Issue';
+import { IssueFormInput } from '../../models/issueFormInput';
 
 @Component({
   selector: 'app-issue-form',
@@ -11,14 +12,7 @@ import { Issue } from '../../models/Issue';
   styleUrl: './issue-form.component.scss',
 })
 export class IssueFormComponent {
-  @Input() initForm!: {
-    name: string;
-    description: string;
-    date: string;
-    hour: string;
-    active: boolean;
-    new: boolean;
-  };
+  @Input() initForm!: IssueFormInput;
 
   @Output() onSumbitForm = new EventEmitter<Issue>();
   form!: FormGroup;
@@ -34,12 +28,13 @@ export class IssueFormComponent {
   }
 
   onSubmit(): void {
-    const { name, description, date, active } = this.form.value;
+    const { name, description, date, hour, active } = this.form.value;
     const issue: Issue = {
       id: '11-22-33',
       name,
       description,
       date,
+      hour,
       active,
     };
     this.onSumbitForm.emit(issue);
