@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Issue } from '../../models/Issue';
-import { AppStateInterface } from '../../store/appStateInterface';
 import { CommonModule } from '@angular/common';
 import { IssueFormComponent } from '../issue-form/issue-form.component';
 import { IssueFormInput } from '../../models/issueFormInput';
+import { IssueService } from '../../services/issue/issue.service';
 
 @Component({
   selector: 'app-new-issue',
@@ -15,8 +14,6 @@ import { IssueFormInput } from '../../models/issueFormInput';
   styleUrl: './new-issue.component.scss',
 })
 export class NewIssueComponent implements OnInit {
-  //form!: FormGroup;
-  //isLoading$!: Observable<boolean>;
   initForm: IssueFormInput = {
     name: '',
     description: '',
@@ -25,14 +22,11 @@ export class NewIssueComponent implements OnInit {
     active: false,
     new: true,
   };
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<AppStateInterface>
-  ) {}
+  constructor(private service: IssueService) {}
 
   ngOnInit(): void {}
 
   onSub(issue: Issue) {
-    console.log('new issue submitted', issue);
+    this.service.createNewIssue(issue);
   }
 }

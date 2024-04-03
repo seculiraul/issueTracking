@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
-import { IssueService } from '../services/issue.service';
+import { catchError, map, of, switchMap } from 'rxjs';
+import { IssueService } from '../services/issue/issue.service';
 import { Issue } from '../models/Issue';
 import { issueActions } from './issue.actions';
+import { ApiService } from '../services/api/api.service';
 
 // @Injectable()
 // export class IssuesEffects {
@@ -31,7 +32,7 @@ import { issueActions } from './issue.actions';
 // }
 
 export const getIssuesEffect = createEffect(
-  (actions$ = inject(Actions), service = inject(IssueService)) => {
+  (actions$ = inject(Actions), service = inject(ApiService)) => {
     return actions$.pipe(
       ofType(issueActions.getIssues),
       switchMap(() => {
@@ -50,7 +51,7 @@ export const getIssuesEffect = createEffect(
 );
 
 export const createIssueEffect = createEffect(
-  (actions$ = inject(Actions), issueService = inject(IssueService)) => {
+  (actions$ = inject(Actions), issueService = inject(ApiService)) => {
     return actions$?.pipe(
       ofType(issueActions.createIssue),
       switchMap(({ issue }) => {
@@ -75,7 +76,7 @@ export const createIssueEffect = createEffect(
 );
 
 export const getSingleIssue = createEffect(
-  (actions$ = inject(Actions), service = inject(IssueService)) => {
+  (actions$ = inject(Actions), service = inject(ApiService)) => {
     return actions$?.pipe(
       ofType(issueActions.getSingleIssue),
       switchMap(({ id }) => {

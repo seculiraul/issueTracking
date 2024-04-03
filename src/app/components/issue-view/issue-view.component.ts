@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Issue } from '../../models/Issue';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { selectIssueById } from '../../store/issue.selectors';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IssueFormComponent } from '../issue-form/issue-form.component';
 import { IssueFormInput } from '../../models/issueFormInput';
+import { IssueTransformer } from '../../transformers/issue.transformer';
 
 @UntilDestroy()
 @Component({
@@ -23,6 +23,7 @@ export class IssueViewComponent implements OnInit {
   issueDetails!: IssueFormInput;
 
   constructor(
+    private transformer: IssueTransformer,
     private store: Store<AppStateInterface>,
     private route: ActivatedRoute
   ) {}
@@ -39,8 +40,8 @@ export class IssueViewComponent implements OnInit {
         this.issueDetails = {
           name: issue?.name ?? '',
           description: issue?.description ?? '',
-          date: issue?.date ?? '',
-          hour: '12:15:00',
+          date: this.transformer.transformDateFormat(issue?.date ?? ''),
+          hour: this.transformer.transformDateFormat(issue?.hour ?? ''),
           active: issue?.active ?? false,
           new: false,
         };
