@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Issue } from '../../models/Issue';
 import { Observable, catchError, of } from 'rxjs';
-import { Issue } from '../models/Issue';
 
 @Injectable({
   providedIn: 'root',
 })
-export class IssueService {
+export class ApiService {
   private issueUrl = 'http://localhost:3000/issues';
   constructor(private http: HttpClient) {}
 

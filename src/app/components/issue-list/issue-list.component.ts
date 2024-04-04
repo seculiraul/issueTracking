@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Issue } from '../../models/Issue';
-import { IssueService } from '../../services/issue.service';
+import { IssueService } from '../../services/issue/issue.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
