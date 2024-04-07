@@ -4,6 +4,8 @@ import { issueActions } from '../../store/issue.actions';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { IssueTransformer } from '../../transformers/issue.transformer';
+import { selectIssueById } from '../../store/issue.selectors';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +18,17 @@ export class IssueService {
 
   createNewIssue(issue: Issue) {
     this.store.dispatch(this.transformer.createIssueWithTransformedData(issue));
+  }
+
+  getSelectedIssue(id: string): Observable<Issue | undefined> {
+    return this.store.select(selectIssueById(id));
+  }
+
+  transformDateFormat(date: string): string {
+    return this.transformer.transformDateFormat(date);
+  }
+
+  transformHourFormat(hour: string): string {
+    return this.transformer.transformHourFormat(hour);
   }
 }
