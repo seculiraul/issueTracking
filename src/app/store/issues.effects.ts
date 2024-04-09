@@ -1,10 +1,11 @@
-import { inject } from '@angular/core';
+import { Inject, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { IssueService } from '../services/issue/issue.service';
 import { Issue } from '../models/Issue';
 import { issueActions } from './issue.actions';
 import { ApiService } from '../services/api/api.service';
+import { error } from 'console';
 
 // @Injectable()
 // export class IssuesEffects {
@@ -88,6 +89,25 @@ export const getSingleIssue = createEffect(
             return of(
               issueActions.getSingleIssueFail({ error: error?.message })
             );
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const editIssue = createEffect(
+  (actions$ = inject(Actions), service = inject(ApiService)) => {
+    return actions$?.pipe(
+      ofType(issueActions.editIssue),
+      switchMap(({ issue }) => {
+        return service.editIssue(issue).pipe(
+          map((issue) => {
+            return issueActions.editIssueSuccess({ issue });
+          }),
+          catchError((error: Error) => {
+            return of(issueActions.editIssueFail({ error: error?.message }));
           })
         );
       })

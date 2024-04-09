@@ -18,5 +18,8 @@ export const issueActions = createActionGroup({
     'Get Single Issue': props<{ id: string }>(),
     'Get Single Issue Success': props<{ issue: Issue }>(),
     'Get Single Issue Fail': props<{ error: string }>(),
+    'Edit Issue': props<{ issue: Issue }>(),
+    'Edit Issue Success': props<{ issue: Issue }>(),
+    'Edit Issue Fail': props<{ error: string }>(),
   },
 });

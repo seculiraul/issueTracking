@@ -75,5 +75,25 @@ export const issueReducers = createReducer(
       isLoading: false,
       error: action?.error,
     };
+  }),
+  on(issueActions.editIssue, (state, action) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(issueActions.editIssueSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      selectedIssue: action?.issue,
+    };
+  }),
+  on(issueActions.editIssueFail, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action?.error,
+    };
   })
 );
