@@ -42,7 +42,7 @@ export class IssueViewComponent implements OnInit {
       });
   }
 
-  onSub(event: Issue): void {
-    console.log('sumbit');
+  onSaveClick(issue: Issue): void {
+    this.service.editIssue(issue);
   }
 }

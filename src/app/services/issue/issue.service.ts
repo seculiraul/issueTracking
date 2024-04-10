@@ -20,6 +20,16 @@ export class IssueService {
     this.store.dispatch(this.transformer.createIssueWithTransformedData(issue));
   }
 
+  editIssue(issue: Issue) {
+    const editedIssue: Issue = {
+      ...issue,
+      hour: this.transformHourFormat(issue.hour ?? ''),
+      date: this.transformDateFormat(issue?.date ?? ''),
+    };
+
+    console.log(editedIssue);
+  }
+
   getSelectedIssue(id: string): Observable<Issue | undefined> {
     return this.store.select(selectIssueById(id));
   }
