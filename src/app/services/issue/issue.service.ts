@@ -28,7 +28,7 @@ export class IssueService {
       date: this.transformDateFormat(issue?.date ?? ''),
     };
 
-    console.log(editedIssue);
+    this.store.dispatch(issueActions.editIssue({ issue: editedIssue }));
   }
 
   getSelectedIssue(id: string): Observable<Issue | undefined> {
