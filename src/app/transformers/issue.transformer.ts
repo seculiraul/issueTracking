@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Issue } from '../models/Issue';
 import { issueActions } from '../store/issue.actions';
+import { IssueFormOutput } from '../models/IssueFormOutput';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IssueTransformer {
-  createIssueWithTransformedData(issue: Issue): any {
+  createIssueWithTransformedData(issue: IssueFormOutput): any {
     const transformedIssue: Issue = {
       ...issue,
       id: Math.random().toString(),

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Issue } from '../../models/Issue';
-import { issueActions } from '../../store/issue.actions';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { IssueTransformer } from '../../transformers/issue.transformer';
 import { selectIssueById } from '../../store/issue.selectors';
 import { Observable } from 'rxjs';
+import { IssueFormOutput } from '../../models/IssueFormOutput';
+import { issueActions } from '../../store/issue.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class IssueService {
     private transformer: IssueTransformer
   ) {}
 
-  createNewIssue(issue: Issue) {
+  createNewIssue(issue: IssueFormOutput) {
     this.store.dispatch(this.transformer.createIssueWithTransformedData(issue));
   }
 

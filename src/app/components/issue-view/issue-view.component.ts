@@ -7,6 +7,7 @@ import { IssueFormComponent } from '../issue-form/issue-form.component';
 import { IssueFormInput } from '../../models/issueFormInput';
 import { IssueTransformer } from '../../transformers/issue.transformer';
 import { IssueService } from '../../services/issue/issue.service';
+import { IssueFormOutput } from '../../models/IssueFormOutput';
 
 @UntilDestroy()
 @Component({
@@ -42,7 +43,11 @@ export class IssueViewComponent implements OnInit {
       });
   }
 
-  onSaveClick(issue: Issue): void {
+  onSaveClick(issueDetails: IssueFormOutput): void {
+    const issue: Issue = {
+      ...issueDetails,
+      id: this.issueId,
+    };
     this.service.editIssue(issue);
   }
 }
