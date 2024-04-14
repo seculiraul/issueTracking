@@ -35,7 +35,7 @@ export class ApiService {
   editIssue(data: Issue): Observable<Issue> {
     const url = `${this.issueUrl}/${data?.id}`;
     return this.http
-      .patch<Issue>(url, data)
+      .put<Issue>(url, data)
       .pipe(
         catchError(
           this.handleError<Issue>(`Failed to edit issue with id: ${data?.id}`)

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Issue } from '../../models/Issue';
 import { CommonModule } from '@angular/common';
 import { IssueFormComponent } from '../issue-form/issue-form.component';
 import { IssueFormInput } from '../../models/issueFormInput';
 import { IssueService } from '../../services/issue/issue.service';
+import { IssueFormOutput } from '../../models/IssueFormOutput';
 
 @Component({
   selector: 'app-new-issue',
@@ -26,7 +26,7 @@ export class NewIssueComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSub(issue: Issue) {
+  onSub(issue: IssueFormOutput) {
     this.service.createNewIssue(issue);
   }
 }
