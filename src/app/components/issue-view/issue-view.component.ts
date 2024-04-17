@@ -5,7 +5,6 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { IssueFormComponent } from '../issue-form/issue-form.component';
 import { IssueFormInput } from '../../models/issueFormInput';
-import { IssueTransformer } from '../../transformers/issue.transformer';
 import { IssueService } from '../../services/issue/issue.service';
 import { IssueFormOutput } from '../../models/IssueFormOutput';
 
@@ -28,19 +27,15 @@ export class IssueViewComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((param) => (this.issueId = param['id']));
 
-    this.service
-      .getSelectedIssue(this.issueId)
-      .pipe(untilDestroyed(this))
-      .subscribe((issue?: Issue) => {
-        this.issueDetails = {
-          name: issue?.name ?? '',
-          description: issue?.description ?? '',
-          date: this.service.transformDateFormat(issue?.date ?? ''),
-          hour: this.service.transformDateFormat(issue?.hour ?? ''),
-          active: issue?.active ?? false,
-          new: false,
-        };
-      });
+    const issue = this.service.getSelectedIssue(this.issueId);
+    this.issueDetails = {
+      name: issue?.name ?? '',
+      description: issue?.description ?? '',
+      date: this.service.transformDateFormat(issue?.date ?? ''),
+      hour: this.service.transformDateFormat(issue?.hour ?? ''),
+      active: issue?.active ?? false,
+      new: false,
+    };
   }
 
   onSaveClick(issueDetails: IssueFormOutput): void {

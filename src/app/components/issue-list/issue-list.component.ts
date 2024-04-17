@@ -5,11 +5,7 @@ import { IssueService } from '../../services/issue/issue.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CommonModule } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import {
-  isLoading,
-  issuesSelector,
-  selectIssueById,
-} from '../../store/issue.selectors';
+import { isLoading, issuesSelector } from '../../store/issue.selectors';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { issueActions } from '../../store/issue.actions';
 import { Router } from '@angular/router';
@@ -41,11 +37,6 @@ export class IssueListComponent implements OnInit {
       untilDestroyed(this),
       select(issuesSelector)
     );
-    this.store
-      .select(selectIssueById('iid-123-isue1'))
-      .subscribe((issue: Issue | undefined) => {
-        console.log(issue?.id);
-      });
   }
 
   onRowClick(id?: string): void {
