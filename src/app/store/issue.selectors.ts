@@ -15,6 +15,11 @@ export const errorSelector = createSelector(
   (state) => state.error
 );
 
+export const selectedIssueSelector = createSelector(
+  selectFeature,
+  (state) => state?.selectedIssue
+);
+
 export const selectIssueById = (id: string) =>
   createSelector(selectFeature, (state) =>
     state.issues.find((issue) => issue.id === id)

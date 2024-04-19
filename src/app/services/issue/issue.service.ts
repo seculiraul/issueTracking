@@ -3,7 +3,10 @@ import { Issue } from '../../models/Issue';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { IssueTransformer } from '../../transformers/issue.transformer';
-import { selectIssueById } from '../../store/issue.selectors';
+import {
+  selectIssueById,
+  selectedIssueSelector,
+} from '../../store/issue.selectors';
 import { Observable } from 'rxjs';
 import { IssueFormOutput } from '../../models/IssueFormOutput';
 import { issueActions } from '../../store/issue.actions';
@@ -31,8 +34,20 @@ export class IssueService {
     this.store.dispatch(issueActions.editIssue({ issue: editedIssue }));
   }
 
-  getSelectedIssue(id: string): Observable<Issue | undefined> {
-    return this.store.select(selectIssueById(id));
+  getSelectedIssue(id: string): any {
+    let issue;
+    this.store.select(selectIssueById(id)).subscribe((selectedIssue) => {
+      issue = selectedIssue;
+    });
+
+    if (issue) {
+      return issue;
+    }
+    this.store.dispatch(issueActions.getSingleIssue({ id }));
+    this.store.select(selectedIssueSelector).subscribe((selectedIssue) => {
+      issue = selectedIssue;
+    });
+    return issue;
   }
 
   transformDateFormat(date: string): string {
