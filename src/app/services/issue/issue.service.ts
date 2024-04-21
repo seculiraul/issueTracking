@@ -7,7 +7,7 @@ import {
   selectIssueById,
   selectedIssueSelector,
 } from '../../store/issue.selectors';
-import { Observable } from 'rxjs';
+import { take } from 'rxjs';
 import { IssueFormOutput } from '../../models/IssueFormOutput';
 import { issueActions } from '../../store/issue.actions';
 
@@ -34,19 +34,27 @@ export class IssueService {
     this.store.dispatch(issueActions.editIssue({ issue: editedIssue }));
   }
 
-  getSelectedIssue(id: string): any {
+  getSelectedIssue(id: string): Issue | undefined {
     let issue;
-    this.store.select(selectIssueById(id)).subscribe((selectedIssue) => {
-      issue = selectedIssue;
-    });
+
+    this.store
+      .select(selectIssueById(id))
+      .pipe(take(1))
+      .subscribe((selecteIssue) => {
+        issue = selecteIssue;
+      });
 
     if (issue) {
       return issue;
     }
+
     this.store.dispatch(issueActions.getSingleIssue({ id }));
-    this.store.select(selectedIssueSelector).subscribe((selectedIssue) => {
-      issue = selectedIssue;
-    });
+    this.store
+      .select(selectedIssueSelector)
+      .pipe(take(1))
+      .subscribe((currentIssue) => {
+        issue = currentIssue;
+      });
     return issue;
   }
 
