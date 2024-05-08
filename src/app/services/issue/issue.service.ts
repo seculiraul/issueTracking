@@ -7,7 +7,7 @@ import {
   selectIssueById,
   selectedIssueSelector,
 } from '../../store/issue.selectors';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { IssueFormOutput } from '../../models/IssueFormOutput';
 import { issueActions } from '../../store/issue.actions';
 
@@ -56,6 +56,10 @@ export class IssueService {
         issue = currentIssue;
       });
     return issue;
+  }
+
+  getSelectedIssueNew(): Observable<Issue | null> {
+    return this.store.select(selectedIssueSelector);
   }
 
   transformDateFormat(date: string): string {

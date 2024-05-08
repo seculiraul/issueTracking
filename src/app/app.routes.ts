@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { issueGuard } from './guards/issue.guard';
 
 export const routes: Routes = [
   {
@@ -21,5 +22,6 @@ export const routes: Routes = [
       import('./components/issue-view/issue-view.component').then(
         (m) => m.IssueViewComponent
       ),
+    canActivate: [issueGuard],
   },
 ];
