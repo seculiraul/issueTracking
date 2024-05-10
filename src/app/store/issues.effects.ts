@@ -1,11 +1,9 @@
-import { Inject, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { IssueService } from '../services/issue/issue.service';
 import { Issue } from '../models/Issue';
 import { issueActions } from './issue.actions';
 import { ApiService } from '../services/api/api.service';
-import { error } from 'console';
 
 // @Injectable()
 // export class IssuesEffects {

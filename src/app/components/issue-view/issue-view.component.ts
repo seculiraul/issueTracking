@@ -23,19 +23,19 @@ export class IssueViewComponent implements OnInit {
   constructor(private service: IssueService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.params
+    this.service
+      .getSelectedIssueNew()
       .pipe(untilDestroyed(this))
-      .subscribe((param) => (this.issueId = param['id']));
-
-    const issue = this.service.getSelectedIssue(this.issueId);
-    this.issueDetails = {
-      name: issue?.name ?? '',
-      description: issue?.description ?? '',
-      date: this.service.transformDateFormat(issue?.date ?? ''),
-      hour: this.service.transformDateFormat(issue?.hour ?? ''),
-      active: issue?.active ?? false,
-      new: false,
-    };
+      .subscribe((issue) => {
+        this.issueDetails = {
+          name: issue?.name ?? '',
+          description: issue?.description ?? '',
+          date: this.service.transformDateFormat(issue?.date ?? ''),
+          hour: this.service.transformDateFormat(issue?.hour ?? ''),
+          active: issue?.active ?? false,
+          new: false,
+        };
+      });
   }
 
   onSaveClick(issueDetails: IssueFormOutput): void {
