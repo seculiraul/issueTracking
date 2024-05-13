@@ -41,6 +41,7 @@ export class IssueListComponent implements OnInit {
 
   onRowClick(id?: string): void {
     if (id) {
+      this.store.dispatch(issueActions.getSingleIssue({ id }));
       this.router.navigate(['issue', id]);
     }
   }

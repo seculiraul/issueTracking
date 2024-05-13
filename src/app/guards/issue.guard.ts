@@ -12,10 +12,12 @@ export const issueGuard: CanActivateFn = (route, state) => {
   const store = inject(Store);
   return store.select(selectedIssueSelector).pipe(
     map((issue) => {
-      if (issue) {
+      if (!issue) {
+        store.dispatch(
+          issueActions.getSingleIssue({ id: route.params?.['id'] })
+        );
         return true;
       }
-      store.dispatch(issueActions.getSingleIssue({ id: route.params?.['id'] }));
       return true;
     })
   );
