@@ -14,17 +14,19 @@ import { IssueFormOutput } from '../../models/IssueFormOutput';
   styleUrl: './new-issue.component.scss',
 })
 export class NewIssueComponent implements OnInit {
-  initForm: IssueFormInput = {
-    name: '',
-    description: '',
-    date: '',
-    hour: '',
-    active: false,
-    new: true,
-  };
+  initForm!: IssueFormInput;
   constructor(private service: IssueService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initForm = {
+      name: '',
+      description: '',
+      date: '',
+      hour: '',
+      active: false,
+      new: true,
+    };
+  }
 
   onSub(issue: IssueFormOutput) {
     this.service.createNewIssue(issue);

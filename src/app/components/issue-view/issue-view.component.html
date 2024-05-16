@@ -1,6 +1,7 @@
 <div class="flex flex-row justify-center items-center mx-auto">
   <app-issue-form
     [initForm]="issueDetails"
+    [subject]="issueDetailsSUbject"
     (onSumbitForm)="onSaveClick($event)"
   ></app-issue-form>
 </div>
