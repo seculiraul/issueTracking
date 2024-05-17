@@ -7,6 +7,7 @@ import { IssueFormComponent } from '../issue-form/issue-form.component';
 import { IssueFormInput } from '../../models/issueFormInput';
 import { IssueService } from '../../services/issue/issue.service';
 import { IssueFormOutput } from '../../models/IssueFormOutput';
+import { Observable, Subject, of } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -18,6 +19,7 @@ import { IssueFormOutput } from '../../models/IssueFormOutput';
 })
 export class IssueViewComponent implements OnInit {
   issueId!: string;
+  issueDetailsSUbject = new Subject<IssueFormInput>();
   issueDetails!: IssueFormInput;
 
   constructor(private service: IssueService, private route: ActivatedRoute) {}
@@ -35,6 +37,7 @@ export class IssueViewComponent implements OnInit {
           active: issue?.active ?? false,
           new: false,
         };
+        this.issueDetailsSUbject.next(this.issueDetails);
       });
   }
 
