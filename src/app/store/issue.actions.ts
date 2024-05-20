@@ -12,7 +12,7 @@ export const issueActions = createActionGroup({
     'Create Issue': props<{ issue: Issue }>(),
     'Create Issue Success': props<{ issue: Issue }>(),
     'Create Issue Fail': props<{ error: string }>(),
-    'Get Issues': emptyProps(),
+    'Get Issues': props<{ page: string; limit: string }>(),
     'Get Issues Success': props<{ issues: Issue[] }>(),
     'Get Issues Fail': props<{ error: string }>(),
     'Get Single Issue': props<{ id: string }>(),

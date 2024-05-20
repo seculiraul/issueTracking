@@ -34,8 +34,8 @@ export const getIssuesEffect = createEffect(
   (actions$ = inject(Actions), service = inject(ApiService)) => {
     return actions$.pipe(
       ofType(issueActions.getIssues),
-      switchMap(() => {
-        return service.getIssues().pipe(
+      switchMap(({ page, limit }) => {
+        return service.getIssues(page, limit).pipe(
           map((issues: Issue[]) => {
             return issueActions.getIssuesSuccess({ issues });
           }),
