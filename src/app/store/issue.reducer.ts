@@ -26,7 +26,7 @@ export const issueReducers = createReducer(
     return {
       ...state,
       isLoading: false,
-      issues: action?.issues,
+      issues: [...state?.issues, ...action?.issues],
     };
   }),
   on(issueActions.getIssuesFail, (state, action) => {

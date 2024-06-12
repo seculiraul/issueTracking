@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, inject } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  combineLatest,
+  forkJoin,
+  take,
+  zip,
+} from 'rxjs';
 import { Issue } from '../../models/Issue';
 import { IssueService } from '../../services/issue/issue.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -8,13 +15,15 @@ import { Store, select } from '@ngrx/store';
 import { isLoading, issuesSelector } from '../../store/issue.selectors';
 import { AppStateInterface } from '../../store/appStateInterface';
 import { issueActions } from '../../store/issue.actions';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { editIssue } from '../../store/issues.effects';
 
 @UntilDestroy()
 @Component({
   selector: 'app-issue-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, InfiniteScrollModule],
   templateUrl: './issue-list.component.html',
   styleUrl: './issue-list.component.scss',
 })
@@ -22,6 +31,17 @@ export class IssueListComponent implements OnInit {
   issues$!: Observable<Issue[]>;
   isLoading$!: Observable<boolean>;
   test$!: Observable<Issue | undefined>;
+
+  isue!: Issue[];
+
+  issues = new BehaviorSubject([]);
+  page = 1;
+
+  route = inject(ActivatedRoute);
+
+  limit = 10;
+  lastKey = '';
+  finished = false;
 
   constructor(
     private service: IssueService,
@@ -32,11 +52,26 @@ export class IssueListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(issueActions.getIssues());
     this.issues$ = this.store.pipe(
       untilDestroyed(this),
       select(issuesSelector)
     );
+
+    this.getIssues();
+    //this.store.dispatch(issueActions.getIssues());
+    // this.getIssues();
+  }
+
+  onScroll() {
+    console.log('hello');
+    this.getIssues();
+  }
+
+  getIssues() {
+    this.store.dispatch(
+      issueActions.getIssues({ page: `${this.page}`, limit: `${this.limit}` })
+    );
+    this.page++;
   }
 
   onRowClick(id?: string): void {

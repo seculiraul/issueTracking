@@ -10,9 +10,14 @@ export class ApiService {
   private issueUrl = 'http://localhost:3000/issues';
   constructor(private http: HttpClient) {}
 
-  getIssues(): Observable<Issue[]> {
+  getIssues(page: string, limit: string): Observable<Issue[]> {
     return this.http
-      .get<Issue[]>(this.issueUrl)
+      .get<Issue[]>(this.issueUrl, {
+        params: {
+          _page: page,
+          _limit: limit,
+        },
+      })
       .pipe(catchError(this.handleError<Issue[]>('Failed to get issues')));
   }
 

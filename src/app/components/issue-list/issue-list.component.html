@@ -44,4 +44,17 @@
       }
     </tbody>
   </table>
+  <div
+    class="border-2 border-r-emerald-600"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()"
+  ></div>
+
+  @if(!finished) {
+  <label>Loading...</label>
+  } @if(finished) {
+  <label>end</label>
+  }
 </div>
