@@ -52,19 +52,27 @@ export class IssueListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.pipe(untilDestroyed(this)).subscribe((params) => {
+      console.log(params);
+    });
     this.issues$ = this.store.pipe(
       untilDestroyed(this),
       select(issuesSelector)
     );
-
     this.getIssues();
+
     //this.store.dispatch(issueActions.getIssues());
     // this.getIssues();
   }
 
   onScroll() {
     console.log('hello');
-    this.getIssues();
+    this.page += 1;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page },
+    });
+    //this.getIssues();
   }
 
   getIssues() {
